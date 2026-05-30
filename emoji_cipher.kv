@@ -1,0 +1,178 @@
+#:kivy 1.0
+
+<CipherLayout>:
+    orientation: 'vertical'
+    spacing: 0
+
+    canvas.before:
+        Color:
+            rgba: 0.93, 0.96, 1.0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # ══ HEADER ══
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: '120dp'
+        padding: [0, 18, 0, 14]
+        spacing: 6
+
+        canvas.before:
+            Color:
+                rgba: 0.77, 0.91, 1.0, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "EmoChiper"
+            font_name: 'AppFont'
+            font_size: '32sp'
+            color: 0.29, 0.23, 0.67, 1
+            size_hint_y: None
+            height: '44dp'
+            halign: 'center'
+
+        Label:
+            text: "Ubah pesanmu jadi emoji rahasia!"
+            font_name: 'AppFont'
+            font_size: '13sp'
+            color: 0.48, 0.40, 0.75, 1
+            size_hint_y: None
+            height: '22dp'
+            halign: 'center'
+
+    # ══ BODY ══
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [16, 14, 16, 14]
+        spacing: 10
+
+        # ── Label input ──
+        Label:
+            text: "Tulis pesanmu di sini"
+            font_name: 'AppFont'
+            font_size: '13sp'
+            color: 0.48, 0.40, 0.75, 1
+            size_hint_y: None
+            height: '22dp'
+            halign: 'left'
+            text_size: self.width, None
+
+        # ── Kotak input ──
+        TextInput:
+            id: input_field
+            hint_text: "Ketik teks atau tempel emoji..."
+            hint_text_color: 0.70, 0.68, 0.80, 1
+            font_size: '16sp'
+            font_name: 'EmojiFont'
+            size_hint_y: None
+            height: '95dp'
+            multiline: True
+            background_normal: ''
+            background_active: ''
+            background_color: 1, 1, 1, 1
+            foreground_color: 0.22, 0.17, 0.45, 1
+            cursor_color: 0.58, 0.43, 0.95, 1
+            padding: [14, 12, 14, 12]
+
+        # ── Tombol encode & decode (lebih kecil, tengah) ──
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '44dp'
+            spacing: 10
+            padding: [30, 0, 30, 0]
+
+            Button:
+                text: "Encode  ke Emoji"
+                on_press: root.encode_text()
+                background_normal: ''
+                background_color: 1.0, 0.55, 0.42, 1
+                color: 0.45, 0.15, 0.05, 1
+                font_name: 'AppFont'
+                font_size: '13sp'
+
+            Button:
+                text: "Decode  ke Teks"
+                on_press: root.decode_text()
+                background_normal: ''
+                background_color: 0.36, 0.84, 0.66, 1
+                color: 0.05, 0.38, 0.25, 1
+                font_name: 'AppFont'
+                font_size: '13sp'
+
+        # ── Label hasil ──
+        Label:
+            text: "Hasil"
+            font_name: 'AppFont'
+            font_size: '13sp'
+            color: 0.48, 0.40, 0.75, 1
+            size_hint_y: None
+            height: '22dp'
+            halign: 'left'
+            text_size: self.width, None
+
+        # ── Kotak output ──
+        TextInput:
+            id: output_field
+            hint_text: "Hasil akan muncul di sini..."
+            hint_text_color: 0.55, 0.72, 0.63, 1
+            font_size: '20sp'
+            font_name: 'EmojiFont'
+            size_hint_y: 1
+            multiline: True
+            readonly: True
+            background_normal: ''
+            background_active: ''
+            background_color: 0.91, 0.98, 0.95, 1
+            foreground_color: 0.15, 0.38, 0.28, 1
+            padding: [14, 12, 14, 12]
+
+        # ── Status ──
+        Label:
+            id: status_label
+            text: ""
+            font_name: 'AppFont'
+            font_size: '12sp'
+            color: 0.58, 0.43, 0.95, 1
+            size_hint_y: None
+            height: '22dp'
+            halign: 'center'
+            text_size: self.width, None
+
+        # ── Tombol bawah ──
+        GridLayout:
+            cols: 3
+            spacing: 8
+            size_hint_y: None
+            height: '46dp'
+
+            Button:
+                text: "Salin"
+                on_press: root.copy_output()
+                background_normal: ''
+                background_color: 0.77, 0.66, 0.96, 1
+                color: 0.28, 0.12, 0.58, 1
+                font_name: 'AppFont'
+                font_size: '13sp'
+
+            Button:
+                text: "Tempel"
+                on_press: root.paste_input()
+                background_normal: ''
+                background_color: 0.66, 0.85, 0.96, 1
+                color: 0.10, 0.34, 0.52, 1
+                font_name: 'AppFont'
+                font_size: '13sp'
+
+            Button:
+                text: "Hapus"
+                on_press: root.clear_all()
+                background_normal: ''
+                background_color: 0.96, 0.66, 0.75, 1
+                color: 0.52, 0.10, 0.24, 1
+                font_name: 'AppFont'
+                font_size: '13sp'
